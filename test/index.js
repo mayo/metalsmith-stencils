@@ -25,9 +25,9 @@ describe('metalsmith-templates', function(){
       });
   });
 
-  it('should accept an inPlace option', function(done){
+  it('should use metadata defined in template', function(done){
     Metalsmith('test/fixtures/in-place')
-      .use(templates({ engine: 'swig', inPlace: true }))
+      .use(templates({ engine: 'swig'}))
       .build(function(err){
         if (err) return done(err);
         equal('test/fixtures/in-place/expected', 'test/fixtures/in-place/build');
