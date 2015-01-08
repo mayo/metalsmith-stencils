@@ -5,6 +5,26 @@
 
   You can use any templating engine supported by [consolidate.js](https://github.com/visionmedia/consolidate.js).
 
+## NOTE
+
+This fork of metalsmith-templates removes the `inPlace` keyword and instead treats all files it processes as `inPlace`. Only files with `template` keyword in front mater will be processed. If a content file should be treated as a template itself and does not need an external template file, use `true` for the `template` keyword (`template: true`).
+*Please note this breaks reverse compatibility in that `inPlace` didn't require content file to specify `template` in front matter.* Creating this incompatibility allows the user to pick which files get processed as templates. This avoids processing binary files as templates, which made use of `inPlace` relatively limited.
+
+Furthermore, it adds `useExtends`, `defaultExtends`, `defaultBlock`, `extendsPattern`, and `blockPattern` options for better support of template engines with inheritance (swig, jade, etc). Specifying `defaultExtends` option or having `extends` keyword in front matter treats the content file as template and inherits the specified template. Specifying `defaultBlock` will wrap the content in a block expression. `blockPattern` and `extendsPattern` need to be specified for each template engine. `useExtends` needs to be specified in options when using `defaultExtends`.
+
+Example:
+```js
+.use(templates({
+  "engine": "swig",
+  "directory": "templates",
+
+  "autoescape": false,
+
+  "extendsPattern": '{% extends "%s" %}',
+  "blockPattern": [ '{% block %s %}', '{% endblock %}' ]
+}))
+```
+
 ## Installation
 
     $ npm install metalsmith-templates
