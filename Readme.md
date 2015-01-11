@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/mayo/metalsmith-templates.svg?branch=master)](https://travis-ci.org/mayo/metalsmith-templates)
 
 # metalsmith-templates
 
