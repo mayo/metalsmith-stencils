@@ -99,6 +99,45 @@ describe('metalsmith-templates', function(){
       });
   });
 
+  it('should extend multiple layouts', function(done){
+    Metalsmith('test/fixtures/extends-multi')
+      .use(templates({
+        engine: 'swig',
+        extendsPattern: '{% extends "%s" %}'
+      }))
+      .build(function(err){
+        if (err) return done(err);
+        equal('test/fixtures/extends-multi/expected', 'test/fixtures/extends-multi/build');
+        done();
+      });
+  });
+
+  it('should extend multiple templates', function(done){
+    Metalsmith('test/fixtures/extends-basic')
+      .use(templates({
+        engine: 'swig',
+        extendsPattern: '{% extends "%s" %}'
+      }))
+      .build(function(err){
+        if (err) return done(err);
+        equal('test/fixtures/extends-basic/expected', 'test/fixtures/extends-basic/build');
+        done();
+      });
+  });
+
+  it('should extend multiple templates in place', function(done){
+    Metalsmith('test/fixtures/extends-basic-in-place')
+      .use(templates({
+        engine: 'swig',
+        extendsPattern: '{% extends "%s" %}'
+      }))
+      .build(function(err){
+        if (err) return done(err);
+        equal('test/fixtures/extends-basic-in-place/expected', 'test/fixtures/extends-basic-in-place/build');
+        done();
+      });
+  });
+
    it('should extend using default block', function(done){
     Metalsmith('test/fixtures/extends-def_block')
       .use(templates({
@@ -112,7 +151,6 @@ describe('metalsmith-templates', function(){
         equal('test/fixtures/extends-def_block/expected', 'test/fixtures/extends-def_block/build');
         done();
       });
-
   });
 
   it('should extend using default extends', function(done){
