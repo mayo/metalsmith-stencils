@@ -4,7 +4,7 @@ var equal = require('assert-dir-equal');
 var Metalsmith = require('metalsmith');
 var templates = require('..');
 
-describe('metalsmith-templates', function(){
+describe('metalsmith-stencils', function(){
   it('should render a basic template', function(done){
     Metalsmith('test/fixtures/basic')
       .use(templates({ engine: 'swig' }))

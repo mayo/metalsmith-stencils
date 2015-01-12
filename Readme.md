@@ -1,44 +1,31 @@
-[![Build Status](https://travis-ci.org/mayo/metalsmith-templates.svg?branch=master)](https://travis-ci.org/mayo/metalsmith-templates)
+[![Build Status](https://travis-ci.org/mayo/metalsmith-stencils.svg?branch=master)](https://travis-ci.org/mayo/metalsmith-stencils)
 
-# metalsmith-templates
+*NOTE: This is work in progress and not functional yet. In the meantime, please use [mayo/metalsmith-templates](https://github.com/mayo/metalsmith-templates)*
 
-  A metalsmith plugin to render files with templates.
+# metalsmith-stencils
 
-  You can use any templating engine supported by [consolidate.js](https://github.com/visionmedia/consolidate.js).
+A metalsmith plugin to render files with templates. This plugin originated in my [fork](https://github.com/mayo/metalsmith-templates) of the original [segmentio/metalsmith-templates](https://github.com/segmentio/metalsmith-templates) plugin. I initially made some changes, but started diverging significantly, and it made more sense to have a separate plugin for my approach.
 
-## NOTE
+By default, this plugin will fall back on [consolidate.js](https://github.com/visionmedia/consolidate.js), but is meant to be used with template language specifix extensions.
+## Backwards compatibility with metalsmith-templates
 
-This fork of metalsmith-templates removes the `inPlace` keyword and instead treats all files it processes as `inPlace`. Only files with `template` keyword in front mater will be processed. If a content file should be treated as a template itself and does not need an external template file, use `true` for the `template` keyword (`template: true`).
-
-*Please note this breaks backward compatibility in that `inPlace` didn't require content file to specify `template` in front matter.* Creating this incompatibility allows the user to pick which files get processed as templates. This avoids processing binary files as templates, which made use of `inPlace` relatively limited.
-
-Furthermore, it adds `useExtends`, `defaultExtends`, `defaultBlock`, `extendsPattern`, and `blockPattern` options for better support of template engines with inheritance (swig, jade, etc). Specifying `defaultExtends` option or having `extends` keyword in front matter treats the content file as template and inherits the specified template. Specifying `defaultBlock` will wrap the content in a block expression. `blockPattern` and `extendsPattern` need to be specified for each template engine. `useExtends` needs to be specified in options when using `defaultExtends`.
-
-Example:
-```js
-.use(templates({
-  "engine": "swig",
-  "directory": "templates",
-
-  "autoescape": false,
-
-  "extendsPattern": '{% extends "%s" %}',
-  "blockPattern": [ '{% block %s %}', '{% endblock %}' ]
-}))
-```
+This plugin is *mostly*(tm) backwards compatible with metalsmith-templates, with a few caveats:
+* It removes/ignores `inPlace` configuration option and instead treats all templates as `inPlace` did, ie. you can use front matter keywords within the template.
+* Files that need to be processed as templates need to have templating keyword present in the front matter.
+  This is to avoid processing all templates in the source directory as templated, and causing conflict with binary or other files. In the very basic case, each source file needs to have a `template` keyword in front matter with path to a template file. If the source file is a "template" itself, supply `template: true`.
 
 ## Installation
 
-    $ npm install metalsmith-templates
+    $ npm install metalsmith-stencils
 
 ## CLI Usage
 
-  Install the node modules and then add the `metalsmith-templates` key to your `metalsmith.json` plugins. The simplest use case just requires the template engine you want to use:
+  Install the node modules and then add the `metalsmith-stencils` key to your `metalsmith.json` plugins. The simplest use case just requires the template engine you want to use:
 
 ```json
 {
   "plugins": {
-    "metalsmith-templates": "handlebars"
+    "metalsmith-stencils": "handlebars"
   }
 }
 ```
@@ -48,7 +35,7 @@ Example:
 ```json
 {
   "plugins": {
-    "metalsmith-templates": {
+    "metalsmith-stencils": {
       "engine": "handlebars",
       "directory": "templates"
     }
@@ -61,7 +48,7 @@ Example:
   For the simplest use case, just pass your templating engine:
 
 ```js
-var templates = require('metalsmith-templates');
+var templates = require('metalsmith-stencils');
 
 metalsmith.use(templates('swig'));
 ```

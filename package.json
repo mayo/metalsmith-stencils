@@ -1,7 +1,7 @@
 {
-  "name": "metalsmith-templates",
+  "name": "metalsmith-stencils",
   "description": "A metalsmith plugin to render files with templates.",
-  "repository": "git://github.com/segmentio/metalsmith-templates.git",
+  "repository": "git://github.com/mayo/metalsmith-stencils.git",
   "version": "0.6.0",
   "license": "MIT",
   "main": "lib/index.js",
