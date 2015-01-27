@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/mayo/metalsmith-stencils.svg?branch=master)](https://travis-ci.org/mayo/metalsmith-stencils)
 
-*NOTE: This is work in progress and not functional yet. In the meantime, please use [mayo/metalsmith-templates](https://github.com/mayo/metalsmith-templates)*
+*NOTE: This is work in progress and may not be fully functional yet. In the meantime, please use [metalsmith-templates](https://github.com/mayo/metalsmith-stencils/tree/metalsmith-templates) branch of [mayo/metalsmith-stencils](https://github.com/mayo/metalsmith-stencils)*
 
 # metalsmith-stencils
 
