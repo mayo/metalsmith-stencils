@@ -99,6 +99,19 @@ describe('metalsmith-stencils', function(){
       });
   });
 
+  it('should extend deeply nested templates', function(done){
+    Metalsmith('test/fixtures/extends-deep')
+      .use(templates({
+        engine: 'swig',
+        extendsPattern: '{% extends "%s" %}'
+      }))
+      .build(function(err){
+        if (err) return done(err);
+        equal('test/fixtures/extends-deep/expected', 'test/fixtures/extends-deep/build');
+        done();
+      });
+  });
+
   it('should extend multiple layouts', function(done){
     Metalsmith('test/fixtures/extends-multi')
       .use(templates({
